@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<Pane xmlns="http://javafx.com/javafx"
+      fx:id="root" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Frontend.Tamanho">
+    <VBox>
+        <Pane>
+            <HBox fx:id="MenuHbox" alignment="CENTER">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label text="Escolha um tamanho"> </Label>
+            </HBox>
+            <HBox fx:id="boxCarrinho" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Button text="Carrinho" disable="true"></Button>
+            </HBox>
+        </Pane>
+        <VBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <ListView fx:id="listTamanho" fixedCellSize="45">
+            </ListView>
+            <VBox>
+                <padding>
+                    <Insets bottom="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label fx:id="labelqtdSlider" text="Quantidade"/>
+                <Slider fx:id="qtdSlider" >
+
+                </Slider>
+            </VBox>
+        </VBox>
+        <Pane>
+            <HBox fx:id="boxContinuar" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+        </Pane>
+    </VBox>
+</Pane>

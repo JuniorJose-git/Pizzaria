@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.ToggleSwitch?>
+<Pane xmlns="http://javafx.com/javafx"
+      fx:id="root" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Frontend.Borda">
+    <VBox>
+        <Pane>
+            <HBox fx:id="MenuHbox" alignment="CENTER">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label text="Escolha uma borda"> </Label>
+            </HBox>
+            <HBox fx:id="boxCarrinho" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Button text="Carrinho" disable="true"></Button>
+            </HBox>
+        </Pane>
+        <VBox>
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <HBox>
+
+                <Label text="Borda?"></Label>
+                <ToggleSwitch fx:id="toggleSwitch">
+                </ToggleSwitch>
+                <padding>
+                    <Insets bottom="20.0"/>
+                </padding>
+            </HBox>
+            <VBox fx:id="togleBox" disable="true">
+
+            </VBox>
+        </VBox>
+        <Pane>
+            <HBox fx:id="boxContinuar" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Button text="Continuar"></Button>
+            </HBox>
+            <HBox>
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Button text="Voltar" onAction="#paginaAnterior"></Button>
+            </HBox>
+        </Pane>
+    </VBox>
+</Pane>

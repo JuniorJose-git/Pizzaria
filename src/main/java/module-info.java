@@ -1,10 +1,10 @@
-module com.example.pizzaria {
+module Frontend {
     requires javafx.controls;
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.pizzaria to javafx.fxml;
-    exports com.example.pizzaria;
+    opens Frontend to javafx.fxml;
+    exports Frontend;
 }

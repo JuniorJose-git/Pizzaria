@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+<?import javafx.geometry.Insets?>
+<Pane fx:id="root" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Frontend.Sabores">
+    <VBox>
+        <Pane>
+            <HBox fx:id="MenuHbox" alignment="CENTER">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label text="Escolha um sabor"> </Label>
+            </HBox>
+            <HBox fx:id="boxCarrinho" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Button text="Carrinho" disable="true"></Button>
+            </HBox>
+        </Pane>
+        <VBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Doces"></Label>
+
+            <ListView fx:id="listPizzaDoce" fixedCellSize="45" onMouseClicked="#listFocus">
+            </ListView>
+        </VBox>
+        <VBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Salgadas"></Label>
+            <ListView fx:id="listPizzaSalgada" fixedCellSize="45" onMouseClicked="#listFocus">
+            </ListView>
+        </VBox>
+        <Pane>
+            <HBox fx:id="boxContinuar" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+            <HBox>
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Voltar" onAction="#paginaAnterior"></Button>
+            </HBox>
+        </Pane>
+    </VBox>
+</Pane>
