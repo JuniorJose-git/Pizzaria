@@ -6,17 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
 <?import javafx.geometry.Insets?>
-<Pane xmlns="http://javafx.com/javafx"
-      fx:id="root" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Frontend.Tamanho">
+<Pane fx:id="root" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Pizzaria.Frontend.ControllerSabores">
     <VBox>
         <Pane>
             <HBox fx:id="MenuHbox" alignment="CENTER">
                 <padding>
                     <Insets left="20.0" right="20.0" top="20.0"/>
                 </padding>
-                <Label text="Escolha um tamanho"> </Label>
+                <Label text="Escolha um sabor"> </Label>
             </HBox>
             <HBox fx:id="boxCarrinho" alignment="TOP_RIGHT">
                 <padding>
@@ -29,17 +30,18 @@
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
             </padding>
-            <ListView fx:id="listTamanho" fixedCellSize="45">
-            </ListView>
-            <VBox>
-                <padding>
-                    <Insets bottom="20.0" right="20.0" top="20.0"/>
-                </padding>
-                <Label fx:id="labelqtdSlider" text="Quantidade"/>
-                <Slider fx:id="qtdSlider" >
+            <Label text="Doces"></Label>
 
-                </Slider>
-            </VBox>
+            <ListView fx:id="listPizzaDoce" fixedCellSize="45" onMouseClicked="#listFocus">
+            </ListView>
+        </VBox>
+        <VBox>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Salgadas"></Label>
+            <ListView fx:id="listPizzaSalgada" fixedCellSize="45" onMouseClicked="#listFocus">
+            </ListView>
         </VBox>
         <Pane>
             <HBox fx:id="boxContinuar" alignment="TOP_RIGHT">
@@ -47,6 +49,12 @@
                     <Insets bottom="20.0" left="20.0" right="20.0"/>
                 </padding>
                 <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+            <HBox>
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Voltar" onAction="#paginaAnterior"></Button>
             </HBox>
         </Pane>
     </VBox>

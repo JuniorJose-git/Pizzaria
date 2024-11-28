@@ -1,7 +1,5 @@
-package Frontend;
+package Pizzaria.Frontend;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,10 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.ToggleSwitch;
+import org.hibernate.SessionFactory;
 
-public class Tamanho extends Controller {
+public class ControllerTamanho extends Controller {
 
     public HBox MenuHbox;
     public HBox boxCarrinho;
@@ -52,10 +53,11 @@ public class Tamanho extends Controller {
             labelqtdSlider.setText("Quantidade: " + newValue.intValue());
         });
 
+
     }
 
-    public void onSceneLoaded (Scene scene) {
-        super.onSceneLoaded(scene);
+    public void onSceneLoaded (Scene scene, SessionFactory sessionFactory) {
+        super.onSceneLoaded(scene, sessionFactory);
         Stage stage = (Stage) getSceneController().getWindow();
         stage.setTitle("Tamanho e quantidade");
     }

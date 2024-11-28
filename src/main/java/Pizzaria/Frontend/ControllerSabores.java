@@ -1,4 +1,4 @@
-package Frontend;
+package Pizzaria.Frontend;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -7,8 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.hibernate.SessionFactory;
 
-public class Sabores extends Controller {
+public class ControllerSabores extends Controller {
 
     public HBox MenuHbox;
     public ListView listPizzaDoce;
@@ -58,8 +59,8 @@ public class Sabores extends Controller {
         boxContinuar.prefWidthProperty().bind(getRoot().widthProperty());
     }
 
-    public void onSceneLoaded (Scene scene) {
-        super.onSceneLoaded(scene);
+    public void onSceneLoaded (Scene scene, SessionFactory sessionFactory) {
+        super.onSceneLoaded(scene, sessionFactory);
         Stage stage = (Stage) getSceneController().getWindow();
         stage.setTitle("Sabores");
     }

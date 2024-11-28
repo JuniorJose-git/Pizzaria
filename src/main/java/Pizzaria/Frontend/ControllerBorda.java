@@ -1,22 +1,24 @@
-package Frontend;
+package Pizzaria.Frontend;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import Pizzaria.Borda;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.ToggleSwitch;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-public class Borda extends Controller {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ControllerBorda extends Controller {
     public HBox MenuHbox;
     public HBox boxCarrinho;
     public HBox boxContinuar;
@@ -44,25 +46,38 @@ public class Borda extends Controller {
             }
         });
 
+
+    }
+
+    public void onSceneLoaded (Scene scene, SessionFactory sessionFactory) {
+        super.onSceneLoaded(scene, sessionFactory);
+        Stage stage = (Stage) getSceneController().getWindow();
+        stage.setTitle("Bordas");
+
         ToggleGroup group = new ToggleGroup();
 
-        String [] a = {"Catupiry","Cheddar","Chocolate preto", "Chocolate branco", "Mussarela"};
+
+        List<Borda> bordas = new ArrayList<>();
 
 
-        for (int i = 0; i < a.length; i++) {
-            RadioButton button = new RadioButton(a[i]);
+        try {
+            Session session = sessionFactory.openSession();
+            session.beginTransaction();
+            bordas = session.createQuery("from Borda", Borda.class).getResultList();
+            session.getTransaction().commit();
+            session.close();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < bordas.size(); i++) {
+            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + bordas.get(i).getValor());
 
             button.setToggleGroup(group);
             togleBox.getChildren().add(button);
         }
 
         togleBox.setSpacing(20);
-    }
-
-    public void onSceneLoaded (Scene scene) {
-        super.onSceneLoaded(scene);
-        Stage stage = (Stage) getSceneController().getWindow();
-        stage.setTitle("Bordas");
     }
 
     public void paginaAnterior(ActionEvent actionEvent) throws Exception{
