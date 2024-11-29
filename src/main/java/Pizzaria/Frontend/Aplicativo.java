@@ -3,6 +3,7 @@ package Pizzaria.Frontend;
 import Pizzaria.Borda;
 import Pizzaria.Populate;
 import Pizzaria.Sabor;
+import Pizzaria.Tamanho;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class FrontendMenu extends Application {
+public class Aplicativo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -24,6 +25,7 @@ public class FrontendMenu extends Application {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Borda.class)
                 .addAnnotatedClass(Sabor.class)
+                .addAnnotatedClass(Tamanho.class)
                 .buildSessionFactory();
 
 

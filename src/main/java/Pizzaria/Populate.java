@@ -10,28 +10,11 @@ public class Populate {
 
 
     private void bordas(Session session) {
-        List<Borda> bordas1 = session.createQuery("select borda from Borda borda", Borda.class).getResultList();
-
-        String [] a = {"Catupiry", "Cheddar", "Chocolate preto", "Chocolate branco", "Mussarela"};
-
-        boolean resul1 = true;
 
 
-        int c;
 
-        if (a.length > bordas1.size()) {
-            c = bordas1.size();
-        } else {
-            c = a.length;
-        }
+        if (session.createQuery("select borda from Borda borda", Borda.class).getResultList().isEmpty()) {
 
-        for (int i = 0; i < c; i++) {
-            if (Objects.equals(bordas1.get(i).getSabor(), a[i])) {
-                resul1 = false;
-            }
-        }
-
-        if (resul1) {
             session.persist(new Borda("Catupiry", 23));
             session.persist(new Borda("Cheddar", 24));
             session.persist(new Borda("Chocolate preto", 23));
@@ -40,20 +23,35 @@ public class Populate {
         }
     }
 
+    private void sabor ( Session session) {
 
+        if ( session.createQuery("from Sabor", Sabor.class).getResultList().isEmpty()) {
+            session.persist(new Sabor("Ouro Branco",90.0,"Mussarela, Leite Condensado, Chocolate Branco, Bom-Bom Ouro Branco e Cerejas","doce"));
+            session.persist(new Sabor("Romeu e Julieta",90.0,"Mussarela, Goiabada e Leite Condensado","doce"));
+            session.persist(new Sabor("Peperroni",90.0,"Massa de pizza, Molho de tomate, Queijo mussarela","salgado"));
+            session.persist(new Sabor("Frango Catupiry",90.0,"Mussarela, Frango Desfiado, Catupiry, Azeitona e Oregano","salgado"));
+            session.persist(new Sabor("Calabresa",90.0,"Mussarela, Cebola, Azeitona, Oregano","salgado"));
+            session.persist(new Sabor("Baiana",90.0,"Mussarela, Presunto, Calabresa, Pimenta, Cebola, Azeitona e Oregano","salgado"));
+            session.persist(new Sabor("Margarita",90.0,"Mussarela, tomate, Azeitona e Margericão","salgado"));
+            session.persist(new Sabor("4 Queijos",90.0,"Mussarela, Catupiry, Provolone, Parmesão, Azeitona e Oregano","salgado"));
+        }
 
+    }
+
+    private void tamanho (Session session) {
+        if (session.createQuery("from Tamanho", Tamanho.class).getResultList().isEmpty()) {
+            session.persist(new Tamanho(12));
+            session.persist(new Tamanho(8));
+            session.persist(new Tamanho(4));
+        }
+    }
 
     public void start (SessionFactory sessionFactory) {
 
         sessionFactory.inTransaction(session -> {
             bordas(session);
-        });
-
-
-        sessionFactory.inTransaction(session -> {
-            Sabor sabor = new Sabor("Ouro Branco",90.0,"Mussarela, Leite Condensado, Chocolate Branco, Bom-Bom Ouro Branco e Cerejas");
-
-            session.persist(sabor);
+            sabor(session);
+            tamanho(session);
         });
 
     }

@@ -7,11 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import org.controlsfx.control.ToggleSwitch;
 import org.hibernate.SessionFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerTamanho extends Controller {
 
@@ -29,7 +30,7 @@ public class ControllerTamanho extends Controller {
         boxContinuar.prefWidthProperty().bind(getRoot().widthProperty());
 
 
-        listTamanho.setItems(FXCollections.observableArrayList(
+/*        listTamanho.setItems(FXCollections.observableArrayList(
                 "4 fatias",
                 "8 fatias",
                 "12 fatias"
@@ -38,7 +39,7 @@ public class ControllerTamanho extends Controller {
         double listPizzaDoceSize = listTamanho.getItems().sorted().size();
 
         listTamanho.setMaxHeight((listPizzaDoceSize * listTamanho.getFixedCellSize()) + 20);
-        listTamanho.prefHeightProperty().bind(listTamanho.maxHeightProperty());
+        listTamanho.prefHeightProperty().bind(listTamanho.maxHeightProperty());*/
 
         qtdSlider.setShowTickMarks(true);
         qtdSlider.setShowTickLabels(true);
@@ -60,6 +61,24 @@ public class ControllerTamanho extends Controller {
         super.onSceneLoaded(scene, sessionFactory);
         Stage stage = (Stage) getSceneController().getWindow();
         stage.setTitle("Tamanho e quantidade");
+
+        sessionFactory.inTransaction(session -> {
+            List<Integer> query = session.createQuery("select tamanho from Tamanho order by tamanho",int.class).getResultList();
+
+            List<String> resut = new ArrayList<>();
+
+            for (int i = 0; i < query.size(); i++) {
+                resut.add(query.get(i) + " fatias");
+            }
+
+            listTamanho.setItems(FXCollections.observableList(resut));
+
+        });
+
+        double listPizzaDoceSize = listTamanho.getItems().sorted().size();
+
+        listTamanho.setMaxHeight((listPizzaDoceSize * listTamanho.getFixedCellSize()) + 20);
+        listTamanho.prefHeightProperty().bind(listTamanho.maxHeightProperty());
     }
 
     public void proximaPagina(ActionEvent actionEvent) throws Exception{

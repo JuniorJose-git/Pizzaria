@@ -71,7 +71,7 @@ public class ControllerBorda extends Controller {
         }
 
         for (int i = 0; i < bordas.size(); i++) {
-            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + bordas.get(i).getValor());
+            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + bordas.get(i).getPreco());
 
             button.setToggleGroup(group);
             togleBox.getChildren().add(button);

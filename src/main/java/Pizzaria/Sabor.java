@@ -1,8 +1,10 @@
 package Pizzaria;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 
 @Entity
+@Check(constraints = "tipo = 'doce' OR tipo = 'salgado'")
 public class Sabor {
 
     @Id
@@ -19,10 +21,15 @@ public class Sabor {
     private String descricao;
 
 
-    public Sabor(String nome, Double preco, String descricao) {
+    @Column(nullable = false, length = 7)
+    private String tipo;
+
+
+    public Sabor(String nome, Double preco, String descricao, String tipo) {
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
+        this.tipo = tipo;
     }
 
     public Sabor () {};
@@ -57,5 +64,13 @@ public class Sabor {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

@@ -12,13 +12,18 @@ public class Borda {
     private String sabor;
 
     @Column(nullable = false)
-    private Integer valor;
+    private Double preco;
 
     public Borda () {}
 
-    public Borda(String sabor, Integer valor) {
+    public Borda(String sabor, Double preco) {
         this.sabor = sabor;
-        this.valor = valor;
+        this.preco = preco;
+    }
+
+    public Borda(String sabor, Integer preco) {
+        this.sabor = sabor;
+        this.preco = preco + .0;
     }
 
     public Long getId() {
@@ -37,11 +42,15 @@ public class Borda {
         this.sabor = sabor;
     }
 
-    public Integer getValor() {
-        return valor;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setValor(Integer valor) {
-        this.valor = valor;
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public void setPreco(Integer preco) {
+        this.preco = preco + .0;
     }
 }
