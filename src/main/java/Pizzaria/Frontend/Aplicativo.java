@@ -1,9 +1,6 @@
 package Pizzaria.Frontend;
 
-import Pizzaria.Borda;
-import Pizzaria.Populate;
-import Pizzaria.Sabor;
-import Pizzaria.Tamanho;
+import Pizzaria.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,19 +16,19 @@ public class Aplicativo extends Application {
 
         Populate populate = new Populate();
 
-
-
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Borda.class)
                 .addAnnotatedClass(Sabor.class)
                 .addAnnotatedClass(Tamanho.class)
+                .addAnnotatedClass(Cliente.class)
+                .addAnnotatedClass(Pedido.class)
                 .buildSessionFactory();
 
 
         populate.start(sessionFactory);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sabores.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cliente.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         Controller controller = fxmlLoader.getController();
         stage.setScene(scene);

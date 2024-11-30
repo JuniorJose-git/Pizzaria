@@ -84,4 +84,8 @@ public class ControllerTamanho extends Controller {
     public void proximaPagina(ActionEvent actionEvent) throws Exception{
         changeSceneRoot(getClass().getResource("sabores.fxml"));
     }
+
+    public void paginaAnterior(ActionEvent actionEvent) throws Exception {
+        changeSceneRoot(getClass().getResource("cliente.fxml"));
+    }
 }

@@ -2,6 +2,8 @@ package Pizzaria;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Borda {
     @Id
@@ -13,6 +15,9 @@ public class Borda {
 
     @Column(nullable = false)
     private Double preco;
+
+    @OneToMany(mappedBy = "borda")
+    private List<Pizza> pizzas;
 
     public Borda () {}
 
@@ -52,5 +57,9 @@ public class Borda {
 
     public void setPreco(Integer preco) {
         this.preco = preco + .0;
+    }
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
     }
 }

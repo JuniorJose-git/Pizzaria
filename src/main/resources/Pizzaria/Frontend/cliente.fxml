@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<Pane fx:id="root" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Pizzaria.Frontend.ControllerCliente">
+<!--    <VBox>
+        <HBox fx:id="MenuHbox" alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Digite o seu nome"> </Label>
+        </HBox>
+        <HBox fx:id="boxtextfield">
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Nome: "></Label>
+        </HBox>
+        <Pane>
+            <HBox fx:id="boxContinuar" alignment="TOP_RIGHT">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+        </Pane>
+    </VBox>-->
+    <VBox fx:id="clientRoot">
+        <VBox fx:id="boxContinuar" alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <Label text="Digite o seu nome">
+                <padding>
+                    <Insets right="80.0"/>
+                </padding>
+            </Label>
+            <HBox fx:id="boxtextfield" alignment="CENTER">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0"/>
+                </padding>
+                <Label text="Nome: "></Label>
+                <HBox>
+                    <padding>
+                        <Insets left="20.0" right="20.0"/>
+                    </padding>
+                    <TextField>
+                    </TextField>
+                </HBox>
+                <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+        </VBox>
+    </VBox>
+</Pane>

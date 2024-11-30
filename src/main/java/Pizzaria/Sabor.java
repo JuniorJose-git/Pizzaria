@@ -3,6 +3,8 @@ package Pizzaria;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
 
+import java.util.List;
+
 @Entity
 @Check(constraints = "tipo = 'doce' OR tipo = 'salgado'")
 public class Sabor {
@@ -20,10 +22,11 @@ public class Sabor {
     @Column(nullable = false)
     private String descricao;
 
-
     @Column(nullable = false, length = 7)
     private String tipo;
 
+    @ManyToMany(mappedBy = "sabores")
+    private List<Pizza> pizzas;
 
     public Sabor(String nome, Double preco, String descricao, String tipo) {
         this.nome = nome;
@@ -36,10 +39,6 @@ public class Sabor {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -72,5 +71,9 @@ public class Sabor {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
     }
 }

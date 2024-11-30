@@ -12,7 +12,6 @@
       fx:id="root" xmlns:fx="http://javafx.com/fxml"
       fx:controller="Pizzaria.Frontend.ControllerTamanho">
     <VBox>
-
         <Pane>
             <HBox fx:id="MenuHbox" alignment="CENTER">
                 <padding>
@@ -49,6 +48,12 @@
                     <Insets bottom="20.0" left="20.0" right="20.0"/>
                 </padding>
                 <Button text="Continuar" onAction="#proximaPagina"></Button>
+            </HBox>
+            <HBox>
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <Button text="Voltar" onAction="#paginaAnterior"></Button>
             </HBox>
         </Pane>
     </VBox>

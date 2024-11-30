@@ -21,6 +21,9 @@
 
         <!-- Specify annotated classes -->
         <mapping class="Pizzaria.Borda"/>
+        <mapping class="Pizzaria.Cliente"/>
+        <mapping class="Pizzaria.Pedido"/>
         <mapping class="Pizzaria.Sabor"/>
+        <mapping class="Pizzaria.Pizza"/>
      </session-factory>
  </hibernate-configuration>

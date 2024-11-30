@@ -2,6 +2,8 @@ package Pizzaria;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Tamanho {
 
@@ -11,6 +13,9 @@ public class Tamanho {
 
     @Column(nullable = false, unique = true)
     private int tamanho;
+
+    @OneToMany(mappedBy = "tamanho")
+    private List<Pizza> pizzas;
 
     public Tamanho () {};
 
@@ -32,5 +37,9 @@ public class Tamanho {
 
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
     }
 }
