@@ -1,6 +1,8 @@
 package Pizzaria.Frontend;
 
 import Pizzaria.Borda;
+import Pizzaria.Pedido;
+import Pizzaria.Tamanho;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -15,6 +17,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,10 @@ public class ControllerBorda extends Controller {
     public HBox boxContinuar;
     public ToggleSwitch toggleSwitch;
     public VBox togleBox;
+    ToggleGroup group;
+    List<Borda> bordas;
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @FXML
     public void initialize() {
@@ -45,8 +51,6 @@ public class ControllerBorda extends Controller {
                 togleBox.setDisable(false);
             }
         });
-
-
     }
 
     public void onSceneLoaded (Scene scene, SessionFactory sessionFactory) {
@@ -54,11 +58,7 @@ public class ControllerBorda extends Controller {
         Stage stage = (Stage) getSceneController().getWindow();
         stage.setTitle("Bordas");
 
-        ToggleGroup group = new ToggleGroup();
-
-
-        List<Borda> bordas = new ArrayList<>();
-
+        group = new ToggleGroup();
 
         try {
             Session session = sessionFactory.openSession();
@@ -71,13 +71,22 @@ public class ControllerBorda extends Controller {
         }
 
         for (int i = 0; i < bordas.size(); i++) {
-            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + bordas.get(i).getPreco());
+            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + df.format(bordas.get(i).getPreco()));
 
             button.setToggleGroup(group);
             togleBox.getChildren().add(button);
         }
 
         togleBox.setSpacing(20);
+    }
+
+    public void proximaPagina(ActionEvent actionEvent) throws Exception {
+        for (int i = 0; i < group.getToggles().size(); i++) {
+            if (group.getToggles().get(i) == group.getSelectedToggle() && !togleBox.isDisable()) {
+                getPizza().setBorda(bordas.get(i));
+            }
+        }
+        changeSceneRoot(getClass().getResource("pedido.fxml"));
     }
 
     public void paginaAnterior(ActionEvent actionEvent) throws Exception{

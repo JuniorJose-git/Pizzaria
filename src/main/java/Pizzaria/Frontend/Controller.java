@@ -1,5 +1,8 @@
 package Pizzaria.Frontend;
 
+import Pizzaria.Cliente;
+import Pizzaria.Pedido;
+import Pizzaria.Pizza;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +13,33 @@ import org.hibernate.SessionFactory;
 public abstract class Controller {
     private Scene scene;
     private SessionFactory sessionFactory;
+    private Pedido pedido;
+    private Pizza pizza;
+    private Cliente cliente;
+
+    public Pizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public SessionFactory getSessionFactory() {
         return sessionFactory;
@@ -45,7 +75,11 @@ public abstract class Controller {
         Stage stage = (Stage) getSceneController().getWindow();
         getSceneController().setRoot(fxmlLoader.load());
         Controller controller = fxmlLoader.getController();
+        controller.setPizza(this.getPizza());
+        controller.setPedido(this.getPedido());
+        controller.setCliente(this.getCliente());
         controller.onSceneLoaded(getSceneController(), getSessionFactory());
+
 
     }
 }

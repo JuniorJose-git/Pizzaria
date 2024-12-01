@@ -17,6 +17,8 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<Pizza> pizzas;
 
+
+
     public Pedido(Cliente cliente, List<Pizza> pizzas) {
         this.cliente = cliente;
         this.pizzas = pizzas;

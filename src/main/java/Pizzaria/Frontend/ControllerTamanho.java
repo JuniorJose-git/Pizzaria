@@ -1,5 +1,8 @@
 package Pizzaria.Frontend;
 
+import Pizzaria.Pedido;
+import Pizzaria.Pizza;
+import Pizzaria.Tamanho;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +25,9 @@ public class ControllerTamanho extends Controller {
     public ListView listTamanho;
     public Slider qtdSlider;
     public Label labelqtdSlider;
+    public Label qtdError;
+
+    private List<Tamanho> query;
 
     @FXML
     public void initialize () {
@@ -52,8 +58,8 @@ public class ControllerTamanho extends Controller {
 
         qtdSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             labelqtdSlider.setText("Quantidade: " + newValue.intValue());
+            qtdError.visibleProperty().setValue(false);
         });
-
 
     }
 
@@ -63,12 +69,12 @@ public class ControllerTamanho extends Controller {
         stage.setTitle("Tamanho e quantidade");
 
         sessionFactory.inTransaction(session -> {
-            List<Integer> query = session.createQuery("select tamanho from Tamanho order by tamanho",int.class).getResultList();
+            query = session.createQuery("from Tamanho order by tamanho",Tamanho.class).getResultList();
 
             List<String> resut = new ArrayList<>();
 
             for (int i = 0; i < query.size(); i++) {
-                resut.add(query.get(i) + " fatias");
+                resut.add(query.get(i).getTamanho() + " fatias");
             }
 
             listTamanho.setItems(FXCollections.observableList(resut));
@@ -79,9 +85,32 @@ public class ControllerTamanho extends Controller {
 
         listTamanho.setMaxHeight((listPizzaDoceSize * listTamanho.getFixedCellSize()) + 20);
         listTamanho.prefHeightProperty().bind(listTamanho.maxHeightProperty());
+
     }
 
-    public void proximaPagina(ActionEvent actionEvent) throws Exception{
+    public void proximaPagina(ActionEvent actionEvent) throws Exception {
+
+        if (qtdSlider.valueProperty().get() < 1) {
+            qtdError.visibleProperty().setValue(true);
+            return;
+        }
+
+        getPedido().setCliente(getCliente());
+
+        setPizza(new Pizza());
+
+        for (int i = 0; i < query.size(); i++) {
+            if (listTamanho.getFocusModel().isFocused(i)) {
+
+                getPizza().setTamanho(query.get(i));
+            }
+        }
+
+        getPizza().setQuantidade((int) qtdSlider.valueProperty().get());
+        getPizza().setPedido(getPedido());
+
+        getPedido().getPizzas().add(getPizza());
+
         changeSceneRoot(getClass().getResource("sabores.fxml"));
     }
 

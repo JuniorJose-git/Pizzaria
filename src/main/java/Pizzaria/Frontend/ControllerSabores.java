@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -20,6 +21,10 @@ public class ControllerSabores extends Controller {
     public ListView listPizzaSalgada;
     public HBox boxCarrinho;
     public HBox boxContinuar;
+    public Label saborError;
+    List<Sabor> querydoce;
+    List<Sabor> querysalgado;
+    ListView ultimaSelec = null;
 
     @FXML
     public void initialize() {
@@ -67,6 +72,11 @@ public class ControllerSabores extends Controller {
         Stage stage = (Stage) getSceneController().getWindow();
         stage.setTitle("Sabores");
 
+        getSessionFactory().inTransaction(session -> {
+            querydoce = session.createQuery("from Sabor where where tipo = :a", Sabor.class).setParameter("a","doce").getResultList();
+            querysalgado = session.createQuery("from Sabor where where tipo = :a", Sabor.class).setParameter("a","salgado").getResultList();
+        });
+
 
         sessionFactory.inTransaction(session -> {
             List<Object[]> querydoce = session.createQuery("select nome, descricao from Sabor where tipo = :a").setParameter("a","doce").getResultList();
@@ -106,15 +116,47 @@ public class ControllerSabores extends Controller {
         listPizzaSalgada.setMaxHeight((ListPizzaSalgadaSize * listPizzaSalgada.getFixedCellSize()) + 20);
         //listPizzaSalgada.prefHeightProperty().bind(listPizzaSalgada.maxHeightProperty());
         listPizzaSalgada.setMinHeight(2 * listPizzaSalgada.getFixedCellSize());
-    }
 
-
-    @FXML
-    public void listFocus() {
+        selecionarSabor();
     }
 
     public void proximaPagina(ActionEvent actionEvent) throws Exception {
+
+        selecionarSabor();
+
+        if (ultimaSelec == null) {
+            saborError.visibleProperty().setValue(true);
+        }
+
         changeSceneRoot(getClass().getResource("borda.fxml"));
+    }
+
+    private void selecionarSabor() {
+        getPizza().setSabores(new ArrayList<>());
+
+        listPizzaDoce.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                ultimaSelec = listPizzaDoce;
+            }
+        });
+
+        listPizzaSalgada.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                ultimaSelec = listPizzaSalgada;
+            }
+        });
+
+        for (int i = 0; i < listPizzaDoce.getItems().size(); i++) {
+            if (ultimaSelec == listPizzaDoce && listPizzaDoce.getFocusModel().isFocused(i)) {
+                getPizza().getSabores().add(0, querydoce.get(i));
+            }
+        }
+
+        for (int i = 0; i < listPizzaSalgada.getItems().size(); i++) {
+            if (ultimaSelec == listPizzaSalgada && listPizzaSalgada.getFocusModel().isFocused(i)) {
+                getPizza().getSabores().add(0, querysalgado.get(i));
+            }
+        }
     }
 
     public void paginaAnterior(ActionEvent actionEvent) throws Exception{

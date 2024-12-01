@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.Objects;
 
 
-// sa o banco de dados estiver vazio adiciona esses valores;
+// sa o banco de dados estiver vazio adiciona esses valores
 public class Populate {
-
-
 
     private void bordas(Session session) {
 
         if (session.createQuery("select borda from Borda borda", Borda.class).getResultList().isEmpty()) {
-
             session.persist(new Borda("Catupiry", 23));
             session.persist(new Borda("Cheddar", 24));
             session.persist(new Borda("Chocolate preto", 23));
@@ -39,6 +36,7 @@ public class Populate {
     }
 
     private void tamanho (Session session) {
+
         if (session.createQuery("from Tamanho", Tamanho.class).getResultList().isEmpty()) {
             session.persist(new Tamanho(12));
             session.persist(new Tamanho(8));

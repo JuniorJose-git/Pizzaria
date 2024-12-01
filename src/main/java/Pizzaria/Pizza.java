@@ -115,6 +115,11 @@ public class Pizza {
             precoSabores += this.getSabores().get(i).getPreco()/12 * this.getTamanho().getTamanho();
         }
 
-        return ((this.borda.getPreco()/12*this.getTamanho().getTamanho()) + precoSabores) * this.getQuantidade();
+        if (this.borda != null) {
+            return ((this.borda.getPreco()/12*this.getTamanho().getTamanho()) + precoSabores) * this.getQuantidade();
+        }
+
+        return precoSabores * this.getQuantidade();
+
     }
 }

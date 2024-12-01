@@ -51,11 +51,16 @@
                     <padding>
                         <Insets left="20.0" right="20.0"/>
                     </padding>
-                    <TextField>
+                    <TextField fx:id="textField">
                     </TextField>
                 </HBox>
                 <Button text="Continuar" onAction="#proximaPagina"></Button>
             </HBox>
+            <Label fx:id="errorLogin" text="Insira um nome" visible="false">
+                <padding>
+                    <Insets right="80.0"/>
+                </padding>
+            </Label>
         </VBox>
     </VBox>
 </Pane>

@@ -40,6 +40,9 @@
                 <Slider fx:id="qtdSlider" >
 
                 </Slider>
+                <Label fx:id="qtdError" text="Quantidade minima: 1" visible="false">
+
+                </Label>
             </VBox>
         </VBox>
         <Pane>
