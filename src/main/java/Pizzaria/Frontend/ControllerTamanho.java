@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -26,6 +27,7 @@ public class ControllerTamanho extends Controller {
     public Slider qtdSlider;
     public Label labelqtdSlider;
     public Label qtdError;
+    public Button pedidos;
 
     private List<Tamanho> query;
 
@@ -86,6 +88,10 @@ public class ControllerTamanho extends Controller {
         listTamanho.setMaxHeight((listPizzaDoceSize * listTamanho.getFixedCellSize()) + 20);
         listTamanho.prefHeightProperty().bind(listTamanho.maxHeightProperty());
 
+        if (!getPedido().getPizzas().isEmpty()) {
+            pedidos.setDisable(false);
+        }
+
     }
 
     public void proximaPagina(ActionEvent actionEvent) throws Exception {
@@ -109,12 +115,15 @@ public class ControllerTamanho extends Controller {
         getPizza().setQuantidade((int) qtdSlider.valueProperty().get());
         getPizza().setPedido(getPedido());
 
-        getPedido().getPizzas().add(getPizza());
-
         changeSceneRoot(getClass().getResource("sabores.fxml"));
+
     }
 
     public void paginaAnterior(ActionEvent actionEvent) throws Exception {
         changeSceneRoot(getClass().getResource("cliente.fxml"));
+    }
+
+    public void pedido(ActionEvent actionEvent) throws Exception {
+        changeSceneRoot(getClass().getResource("pedido.fxml"));
     }
 }

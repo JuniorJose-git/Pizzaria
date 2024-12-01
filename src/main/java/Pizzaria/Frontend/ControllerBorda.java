@@ -6,6 +6,7 @@ import Pizzaria.Tamanho;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Border;
@@ -27,6 +28,7 @@ public class ControllerBorda extends Controller {
     public HBox boxContinuar;
     public ToggleSwitch toggleSwitch;
     public VBox togleBox;
+    public Button pedidos;
     ToggleGroup group;
     List<Borda> bordas;
 
@@ -71,13 +73,17 @@ public class ControllerBorda extends Controller {
         }
 
         for (int i = 0; i < bordas.size(); i++) {
-            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + df.format(bordas.get(i).getPreco()));
+            RadioButton button = new RadioButton(bordas.get(i).getSabor() + " \nR$:" + df.format(bordas.get(i).getPreco()/12*getPizza().getTamanho().getTamanho()*getPizza().getQuantidade()));
 
             button.setToggleGroup(group);
             togleBox.getChildren().add(button);
         }
 
         togleBox.setSpacing(20);
+
+        if (!getPedido().getPizzas().isEmpty()) {
+            pedidos.setDisable(false);
+        }
     }
 
     public void proximaPagina(ActionEvent actionEvent) throws Exception {
@@ -86,10 +92,16 @@ public class ControllerBorda extends Controller {
                 getPizza().setBorda(bordas.get(i));
             }
         }
+
+        getPedido().getPizzas().add(getPizza());
         changeSceneRoot(getClass().getResource("pedido.fxml"));
     }
 
     public void paginaAnterior(ActionEvent actionEvent) throws Exception{
         changeSceneRoot(getClass().getResource("sabores.fxml"));
+    }
+
+    public void pedido(ActionEvent actionEvent) throws Exception {
+        changeSceneRoot(getClass().getResource("pedido.fxml"));
     }
 }

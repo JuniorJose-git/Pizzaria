@@ -24,6 +24,8 @@ public class ControllerCliente extends Controller {
     public TextField textField;
     public Label errorLogin;
 
+    private Cliente query;
+
 
     public void initialize () {
 
@@ -47,7 +49,15 @@ public class ControllerCliente extends Controller {
             return;
         }
 
-        setCliente(new Cliente(textField.getText()));
+        getSessionFactory().inTransaction(session -> {
+            try {
+                query = session.createQuery("from Cliente where nome = :a", Cliente.class).setParameter("a",textField.getText()).getResultList().getFirst();
+                setCliente(query);
+            } catch (Exception e) {
+                query = null;
+                setCliente(new Cliente(textField.getText()));
+            }
+        });
 
         setPedido(new Pedido());
         getPedido().setPizzas(new ArrayList<>());

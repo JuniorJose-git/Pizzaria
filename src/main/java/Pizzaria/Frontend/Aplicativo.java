@@ -25,11 +25,10 @@ public class Aplicativo extends Application {
                 .addAnnotatedClass(Pedido.class)
                 .buildSessionFactory();
 
-
-        populate.start(sessionFactory);
+        //populate.start(sessionFactory);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cliente.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 620);
         Controller controller = fxmlLoader.getController();
         stage.setScene(scene);
         //stage.setMinHeight(650);

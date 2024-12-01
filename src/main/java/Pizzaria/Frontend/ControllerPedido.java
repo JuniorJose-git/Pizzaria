@@ -1,6 +1,7 @@
 package Pizzaria.Frontend;
 
 import Pizzaria.Borda;
+import Pizzaria.Cliente;
 import Pizzaria.Pedido;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ public class ControllerPedido extends Controller {
     public ListView listPedido;
 
     private List<String> pedidosList;
+    private Cliente clienteQuery;
 
     public void initialize() {
         boxFinalizar.prefWidthProperty().bind(getRoot().prefWidthProperty());
@@ -47,8 +49,29 @@ public class ControllerPedido extends Controller {
                 borda = getPedido().getPizzas().get(i).getBorda().getSabor();
             }
 
+
+            String sabor = "sabores: ";
+
+
+            int saborsize = getPedido().getPizzas().get(i).getSabores().size();
+
+            if (saborsize <= 1) {
+                sabor = "sabor: ";
+            }
+
+            for (int j = 0; j < saborsize; j++) {
+                if (saborsize == 1) {
+                    sabor = "sabor: " + getPedido().getPizzas().get(i).getSabores().get(j).getNome();
+                    break;
+                } else if (j + 1 == saborsize) {
+                    sabor += getPedido().getPizzas().get(i).getSabores().get(j).getNome();
+                } else {
+                    sabor += getPedido().getPizzas().get(i).getSabores().get(j).getNome() + ", ";
+                }
+            }
+
             pedidosList.add(
-                    "Sabor: " + getPedido().getPizzas().get(i).getSabores().getFirst().getNome() + "\n" +
+                    sabor + "\n" +
                             "Borda: " + borda + "\n" +
                             "Tamanho: " + getPedido().getPizzas().get(i).getTamanho().getTamanho() + "\n" +
                             "Quantidade: " + getPedido().getPizzas().get(i).getQuantidade() + "\n" +
@@ -73,14 +96,19 @@ public class ControllerPedido extends Controller {
         setListPedido();
     }
 
-    public void finalizar(ActionEvent actionEvent) {
+    public void finalizar(ActionEvent actionEvent) throws Exception {
 
         if (getPedido().getPizzas().isEmpty()) {
             return;
         }
 
         getSessionFactory().inTransaction(session -> {
-            session.persist(getCliente());
+
+            try {
+                clienteQuery = session.createQuery("from Cliente where nome = :a", Cliente.class).setParameter("a", getCliente().getNome()).getResultList().getFirst();
+            } catch (Exception e) {
+                session.persist(getCliente());
+            }
 
             Pedido pedido = new Pedido();
             pedido.setCliente(getCliente());
@@ -91,8 +119,8 @@ public class ControllerPedido extends Controller {
                 getPedido().getPizzas().get(i).setPedido(pedido);
                 session.persist(getPedido().getPizzas().get(i));
             }
-
-
         });
+
+        changeSceneRoot(getClass().getResource("fila.fxml"));
     }
 }

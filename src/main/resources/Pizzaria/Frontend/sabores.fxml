@@ -8,6 +8,7 @@
 
 <?import org.kordamp.bootstrapfx.scene.layout.Panel?>
 <?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.ToggleSwitch?>
 <Pane fx:id="root" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Pizzaria.Frontend.ControllerSabores">
@@ -23,9 +24,21 @@
                 <padding>
                     <Insets left="20.0" right="20.0" top="20.0"/>
                 </padding>
-                <Button text="Carrinho" disable="true"></Button>
+                <Button fx:id="pedidos" text="Pedidos" onAction="#pedido" disable="true"/>
             </HBox>
         </Pane>
+        <HBox>
+
+            <ToggleSwitch fx:id="toggleSwitch">
+                <padding>
+                    <Insets right="20.0"/>
+                </padding>
+            </ToggleSwitch>
+            <VBox>
+                <Label text="2 Sabores?" fx:id="switchLabel"/>
+                <Label text="Selecione o primeiro sabor" fx:id="selecionarSaborLabel" visible="false" ></Label>
+            </VBox>
+        </HBox>
         <VBox>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
