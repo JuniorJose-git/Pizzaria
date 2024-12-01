@@ -5,9 +5,13 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/pizzaria</property>
+<!--        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/pizzaria</property>
         <property name="hibernate.connection.username">java</property>
-        <property name="hibernate.connection.password">java</property>
+        <property name="hibernate.connection.password">java</property>-->
+
+        <property name="hibernate.connection.url">jdbc:mariadb://vu7o7.h.filess.io:3305/teste_failedpart</property>
+        <property name="hibernate.connection.username">teste_failedpart</property>
+        <property name="hibernate.connection.password">3bf414101936234dba4271e8abea82580d14f91b</property>
 
         <!-- JDBC connection pool settings -->
 <!--        <property name="hibernate.c3p0.min_size">5</property>-->
